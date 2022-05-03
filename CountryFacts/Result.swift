@@ -10,8 +10,8 @@ import Foundation
 // List of countries URL
 public let countryListURL = "https://gist.githubusercontent.com/AwrasAlazawi/f1ea03a71e32caf7e812e42e493d57ce/raw/8831c7691a49b295e432978d40964dbca9b9f6ac/Countries.json"
 
-// Country specific URL
-// https://en.wikipedia.org/w/api.php?action=query&titles=Canada&format=json&formatversion=2
+// Country specific info URL
+public let countryDetailURL = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles="
 
 // For github list of countries
 struct Country: Codable {
@@ -20,15 +20,16 @@ struct Country: Codable {
 
 // For Wikipedia results
 struct Result: Codable {
-    let query: Query
+    var query: Query
 }
 
 struct Query: Codable {
-    let pages: [Int: Page]
+    var pages: [Int: Page]
 }
 
 struct Page: Codable {
-    let pageid: Int
-    let title: String
-    let terms: [String: [String]]?
+    var pageid: Int
+    var title: String
+    //var terms: [String: [String]]?
+    var extract: String
 }

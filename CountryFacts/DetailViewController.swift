@@ -9,22 +9,40 @@ import UIKit
 
 class DetailViewController: UIViewController {
     var selectedCountry: String?
+    var countryInfo: String?
 
+    @IBOutlet var countryText: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = selectedCountry ?? "Country not found"
+        
+        fetchDetailCountryInfo(for: selectedCountry ?? "")
+        
+        countryText.text = countryInfo ?? "Info not found"
+        
+       
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func fetchDetailCountryInfo(for country: String) {
+        let detailURLString = countryDetailURL + country
+        
+        guard let url = URL(string: detailURLString) else {
+            print("Bad URL: \(detailURLString)")
+            return
+        }
+        
+        if let data = try? Data(contentsOf: url) {
+            let decoder = JSONDecoder()
+            
+            if let jsonResults = try? decoder.decode(Result.self, from: data) {
+                countryInfo = jsonResults.query.pages.first?.value.extract
+            } else {
+                print("Failed to load JSON")
+                print(detailURLString)
+            }
+        }
     }
-    */
 
 }

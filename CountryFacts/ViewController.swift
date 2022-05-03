@@ -8,8 +8,6 @@
 import UIKit
 
 class ViewController: UITableViewController {
-    // Stores the results from wikipedia fetch
-    var pages = [Page]()
     // Stores the results from list of countries fetch
     var countries = [Country]()
 
@@ -56,7 +54,6 @@ class ViewController: UITableViewController {
         } else {
             print("Error fetching data")
         }
-        print(countries.count)
     }
 }
 
